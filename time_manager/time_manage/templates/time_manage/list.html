@@ -1,0 +1,30 @@
+{% extends 'time_manage/base.html' %}
+{% block title %}time_manage/list.html{% endblock %}
+{% block body %}
+    <h1>타임 목록</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <!--<th scope="col">#</th>-->
+                <th scope="col">날짜</th>
+                <th scope="col">시작 시간</th>
+                <th scope="col">종료 시간</th>
+                <th scope="col">운영자</th>
+                <th scope="col">편집</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ti in time_info %}
+                    <tr>
+                        <!--<th scope="row">{{ti.id}}</th>-->
+                        <td>{{ti.time_date}}</td>
+                        <td>{{ti.time_start}}</td>
+                        <td>{{ti.time_end}}</td>
+                        <td>{{ti.time_manager}}</td>
+                        <td><a href="/time_manage/{{ti.time_unique_id}}">edit</a></td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

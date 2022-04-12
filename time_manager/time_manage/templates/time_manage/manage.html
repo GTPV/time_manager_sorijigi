@@ -1,0 +1,72 @@
+{% extends 'time_manage/base.html' %}
+{% block title %}manage.html\time_manage{% endblock %}
+
+{% block body %}
+    <button class="btn btn-secondary btn-sm" onclick="location.href='/time_manage/list'">&#60;&#60;목록으로 돌아가기</button>
+    <h4>{{time_info}}</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">신청곡</th>
+                <th scope="col">음원 종류</th>
+                <th scope="col">음반 번호</th>
+                <th scope="col">작곡가</th>
+                <th scope="col">제목</th>
+                <th scope="col">오케스트라</th>
+                <th scope="col">지휘자</th>
+                <!--<th scope="col">연주자</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            {% for music in time_info.music_set.all %}
+                <tr>
+                    <th scope="row">{{music.id}}</th>
+                    <td>
+                        {% if music.music_request %}
+                            O
+                        {% else %}
+                            X
+                        {% endif %}
+                    </td>
+                    <td>{{music.music_source}}</td>
+                    <td>{{music.music_label_id}}</td>
+                    <td>{{music.music_composer}}</td>
+                    <td>{{music.music_title}}</td>
+                    <td>{{music.music_orchestra}}</td>
+                    <td>{{music.music_conductor}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <form method='post' action="#">
+            {% csrf_token %}
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="music_request_input" name="_music_request"></input>
+                <label class="form-check-label" for="music_request_input">신청곡</label>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" placeholder="음원 종류" name="_music_source"></input>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" placeholder="음반 번호" name="_music_label_id"></input>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" placeholder="작곡가" name="_music_composer"></input>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" placeholder="제목" name="_music_title"></input>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" placeholder="오케스트라" name="_music_orchestra"></input>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" placeholder="지휘자" name="_music_conductor"></input>
+            </div>
+            <button type="submit" class="btn btn-primary" name="add_music" value="add_music">음악 추가!</button>
+        </form>
+    </div>
+{% endblock %}
