@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'time_manage',
+    'main',
+    'tv_display',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False
