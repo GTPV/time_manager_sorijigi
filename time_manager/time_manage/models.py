@@ -28,7 +28,7 @@ class Music(models.Model):
     music_title = models.CharField(max_length=200)
     music_conductor = models.CharField(max_length=100, blank=True, default='None')
     music_orchestra = models.CharField(max_length=200, blank=True, default='None')
-    
+
     def __str__(self):
         return f'{self.music_composer}, {self.music_title}'
 

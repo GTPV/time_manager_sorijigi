@@ -39,6 +39,7 @@ def list(response):
 def manage(response, _u_i):
     _time_info = TimeInfo.objects.get(time_unique_id = _u_i)
     _var = {"time_info" : _time_info}
+    _var["i"] = 0
 
     if response.method == "POST":
         if response.POST.get("add_music"):
@@ -52,6 +53,13 @@ def manage(response, _u_i):
                 _music_title = _form.cleaned_data['_music_title']
                 _music_orchestra = _form.cleaned_data['_music_orchestra']
                 _music_conductor = _form.cleaned_data['_music_conductor']
+
+                if _music_label_id == "":
+                    _music_label_id = '해당 없음'
+                if _music_orchestra == "":
+                    _music_orchestra = '해당 없음'
+                if _music_conductor == "":
+                    _music_conductor = '해당 없음'
 
                 _time_info.music_set.create(music_request=_music_request, music_source=_music_source, music_label_id=_music_label_id, music_composer=_music_composer, music_title=_music_title, music_orchestra=_music_orchestra, music_conductor=_music_conductor)
                 return redirect("./")

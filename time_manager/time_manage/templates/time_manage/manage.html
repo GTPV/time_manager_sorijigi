@@ -20,9 +20,12 @@
             </tr>
         </thead>
         <tbody>
+            <script>
+                let music_idx = 0;
+            </script>
             {% for music in time_info.music_set.all %}
                 <tr>
-                    <th scope="row">{{music.id}}</th>
+                    <th scope="row" id="{{music.id}}"></th>
                     <td>
                         {% if music.music_request %}
                             O
@@ -37,6 +40,10 @@
                     <td>{{music.music_orchestra}}</td>
                     <td>{{music.music_conductor}}</td>
                 </tr>
+                <script>
+                    music_idx++;
+                    document.getElementById({{music.id}}).innerHTML = music_idx;
+                </script>
             {% endfor %}
         </tbody>
     </table>
