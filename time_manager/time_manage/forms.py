@@ -14,3 +14,6 @@ class AddMusic(forms.Form):
     _music_title = forms.CharField(max_length=200)
     _music_conductor = forms.CharField(max_length=100, required=False, initial="해당 없음")
     _music_orchestra = forms.CharField(max_length=200, required=False, initial="해당 없음")
+
+class FilterTime(forms.Form):
+    _time_date = forms.DateField()

@@ -2,6 +2,13 @@
 {% block title %}time_manage/list.html{% endblock %}
 {% block body %}
     <h1>타임 목록</h1>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <input type="date" class="form-control" placeholder='날짜 필터'aria-label="date filter" aria-describedby="filter_time_by_date_submit">
+            <button class="btn btn-outline-secondary" type="submit" id="filter_time_by_date_submit" name="filter_time_by_date" value="filter_time_by_date">필터</button>
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>

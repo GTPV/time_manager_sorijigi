@@ -34,6 +34,13 @@ def create(response):
 
 def list(response):
     _var = {"time_info" : TimeInfo.objects.all()}
+    if response.method =="POST":
+        if response.POST.get("filter_time_by_date"):
+            _form = FilterTime(response.POST)
+            if _form.is_valid():
+                _time_date= _form.cleaned_data["_time_date"]
+                _var["time_info"] = TimeInfo.objects.filter(time_date=_time_date)
+                return render(response, 'time_manage/list.html', _var)
     return render(response, 'time_manage/list.html', _var)
 
 def manage(response, _u_i):
