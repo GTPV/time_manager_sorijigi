@@ -62,3 +62,8 @@ def manage(response, _u_i):
             print('\nresponse is not add_music\n')
             _music_add_form = AddMusic()
     return render(response, 'time_manage/manage.html', _var)
+
+def delete_music(response, _u_i, _music_id):
+    _music_info = Music.objects.get(id = _music_id)
+    _music_info.delete()
+    return redirect(f'/time_manage/{_u_i}/')
