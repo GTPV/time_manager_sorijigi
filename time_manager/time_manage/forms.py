@@ -1,19 +1,41 @@
 from django import forms
+from .models import *
 
-class CreateNewTime(forms.Form):
-    _time_manager = forms.CharField(label='manager', max_length=100)
-    _time_date = forms.DateField(label='date')
-    _time_start = forms.TimeField(label='start time')
-    _time_end = forms.TimeField(label='end time')
+class CreateNewTime(forms.ModelForm):
 
-class AddMusic(forms.Form):
-    _music_request = forms.BooleanField(required=False)
-    _music_source = forms.CharField(max_length=100)
-    _music_label_id = forms.CharField(max_length=50, required=False, initial="해당 없음")
-    _music_composer = forms.CharField(max_length=100)
-    _music_title = forms.CharField(max_length=200)
-    _music_conductor = forms.CharField(max_length=100, required=False, initial="해당 없음")
-    _music_orchestra = forms.CharField(max_length=200, required=False, initial="해당 없음")
+    class Meta:
+        model = TimeInfo
+        fields = '__all__'
+        widgets ={
+            'time_date' : forms.DateInput(attrs={'type': 'date'}),
+            'time_start' : forms.TimeInput(attrs={'type' : 'time'}),
+            'time_end' : forms.TimeInput(attrs={'type' : 'time'}),
+        }
+        labels = {
+            'time_date' : "타임 일자",
+            'time_start' : "타임 시작시간",
+            'time_end' : "타임 종료시간",
+            'time_manager' : "타임 운영자",
+        }
+
+class AddMusic(forms.ModelForm):
+
+    class Meta:
+        model = Music
+        exclude = ('time_info',)
+        #fields = '__all__'
+        widgets = {
+            'music_request' : forms.CheckboxInput(attrs={'type' : 'checkbox'}),
+        }
+        labels = {
+            'music_request' : "신청곡",
+            'music_source' : "음원 종류",
+            'music_label_id' : "음반 번호",
+            'music_composer' : "작곡가",
+            'music_title' : "제목",
+            'music_conductor' : "지휘자",
+            'music_orchestra' : "오케스트라",
+        }
 
 class FilterTime(forms.Form):
     _time_date = forms.DateField()

@@ -1,5 +1,5 @@
 from django.core.exceptions import *
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.shortcuts import render, redirect
@@ -11,26 +11,22 @@ def index(response):
     return redirect('/time_manage/list')
 
 def create(response):
+    _time_create_form = CreateNewTime()
+    _var = {"time_create_form" : _time_create_form}
     if response.method == "POST":
-        _form = CreateNewTime(response.POST)
+        _time_create_form = CreateNewTime(response.POST)
 
-        if _form.is_valid():
-            _manager = _form.cleaned_data["_time_manager"]
-            _date = _form.cleaned_data["_time_date"]
-            _start = _form.cleaned_data["_time_start"]
-            _end = _form.cleaned_data["_time_end"]
-            print(f'_manager : {_manager}, _date : {_date}, _start : {_start}, _end : {_end}')
-
-            _time = TimeInfo(time_manager=_manager, time_date = _date, time_start = _start, time_end = _end)
-            _time.save()
+        if _time_create_form.is_valid():
+            _time_create_form.save()
             return redirect("../")
         else:
             print(f'form is not valid')
+            return HttpResponse("""form is invalid  <a href='./'>resubmit</a>""")
 
         return HttpResponseRedirect("./")
     else:
-        _form = CreateNewTime()
-    return render(response, 'time_manage/create.html', {})
+        _time_create_form = CreateNewTime()
+    return render(response, 'time_manage/create.html', _var)
 
 def list(response):
     _var = {"time_info" : TimeInfo.objects.all()}
@@ -51,33 +47,18 @@ def list(response):
 
 def manage(response, _u_i):
     _time_info = TimeInfo.objects.get(time_unique_id = _u_i)
-    _var = {"time_info" : _time_info}
-    _var["i"] = 0
+    _music_add_form = AddMusic()
+    _var = {"time_info" : _time_info, "music_add_form" : _music_add_form}
 
     if response.method == "POST":
         if response.POST.get("add_music"):
-            _form = AddMusic(response.POST)
-            if _form.is_valid():
+            _music_add_form = AddMusic(response.POST)
+            if _music_add_form.is_valid():
                 print('\n\nform_is_valid\n\n')
-                _music_request = _form.cleaned_data['_music_request']
-                _music_source = _form.cleaned_data['_music_source']
-                _music_label_id = _form.cleaned_data['_music_label_id']
-                _music_composer = _form.cleaned_data['_music_composer']
-                _music_title = _form.cleaned_data['_music_title']
-                _music_orchestra = _form.cleaned_data['_music_orchestra']
-                _music_conductor = _form.cleaned_data['_music_conductor']
-
-                if _music_label_id == "":
-                    _music_label_id = '해당 없음'
-                if _music_orchestra == "":
-                    _music_orchestra = '해당 없음'
-                if _music_conductor == "":
-                    _music_conductor = '해당 없음'
-
-                _time_info.music_set.create(music_request=_music_request, music_source=_music_source, music_label_id=_music_label_id, music_composer=_music_composer, music_title=_music_title, music_orchestra=_music_orchestra, music_conductor=_music_conductor)
+                _time_info.music_set.create(**_music_add_form.cleaned_data)
                 return redirect("./")
             print('\nform is not valid\n')
         else:
             print('\nresponse is not add_music\n')
-            _form = AddMusic(response.POST)
+            _music_add_form = AddMusic()
     return render(response, 'time_manage/manage.html', _var)

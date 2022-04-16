@@ -6,25 +6,7 @@
     <h3>타임 생성하기</h3>
     <form method="post", action="#">
         {% csrf_token %}
-        <!--
-        {{form.as_p}}
-        -->
-        <div class="mb-3">
-            <label for="time_date_input" class="form-label">타임 일자</label>
-            <input type="date" name="_time_date" class="form-control" id="time_date_input"></input>
-        </div>
-        <div class="mb-3">
-            <label for="time_manager_input" class="form-label">타임 운영자</label>
-            <input type="text" placeholder="이름을 입력하세요" name="_time_manager" class="form-control" id="time_manager_input"></input>
-        </div>
-        <div class="mb-3">
-            <label for="time_start_input" class="form-label">타임 시작 시간</label>
-            <input type="time" placeholder="" name="_time_start" class="form-control" id="time_start_input"></input>
-        </div>
-        <div class="mb-3">
-            <label for="time_end_input" class="form-label">타임 종료 시간</label>
-            <input type="time" placeholder="" name="_time_end" class="form-control" id="time_end_input"></input>
-        </div>
+        {{time_create_form.as_p}}
         <button type="submit" name="create" class="btn btn-primary">타임 생성!</button>
     </form>
 {% endblock %}

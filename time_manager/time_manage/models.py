@@ -6,7 +6,7 @@ class TimeInfo(models.Model):
     time_date = models.DateField()
     time_start = models.TimeField()
     time_end = models.TimeField()
-    time_manager = models.CharField(help_text='타임 담당자 이름', max_length=100, default='타임 담당자')
+    time_manager = models.CharField(max_length=100)
     time_unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
@@ -23,11 +23,11 @@ class Music(models.Model):
     
     music_request = models.BooleanField(default=False)
     music_source = models.CharField(max_length=100, default='CD')
-    music_label_id = models.CharField(max_length=50, blank=True, default='None')
+    music_label_id = models.CharField(max_length=50, blank=True, default='해당 없음')
     music_composer = models.CharField(max_length=100)
     music_title = models.CharField(max_length=200)
-    music_conductor = models.CharField(max_length=100, blank=True, default='None')
-    music_orchestra = models.CharField(max_length=200, blank=True, default='None')
+    music_conductor = models.CharField(max_length=100, blank=True, default='해당 없음')
+    music_orchestra = models.CharField(max_length=200, blank=True, default='해당 없음')
 
     def __str__(self):
         return f'{self.music_composer}, {self.music_title}'
