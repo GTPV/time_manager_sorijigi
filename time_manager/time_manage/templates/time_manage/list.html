@@ -5,7 +5,7 @@
     <form method="post" action="#">
         {% csrf_token %}
         <div class="input-group mb-3">
-            <input type="date" class="form-control" placeholder='날짜 필터'aria-label="date filter" aria-describedby="filter_time_by_date_submit">
+            <input type="date" class="form-control" placeholder='날짜 필터'aria-label="date filter" aria-describedby="filter_time_by_date_submit" name="_time_date">
             <button class="btn btn-outline-secondary" type="submit" id="filter_time_by_date_submit" name="filter_time_by_date" value="filter_time_by_date">필터</button>
         </div>
     </form>

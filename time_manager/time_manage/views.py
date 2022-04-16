@@ -41,6 +41,12 @@ def list(response):
                 _time_date= _form.cleaned_data["_time_date"]
                 _var["time_info"] = TimeInfo.objects.filter(time_date=_time_date)
                 return render(response, 'time_manage/list.html', _var)
+            else:
+                print(f'\n\nform is not valid\n\n')
+        else:
+            print(f'\n\nresponse method is POST, {response.POST}\n\n')
+    else:
+        print(f'\n\nresponse method is not POST\n\n')
     return render(response, 'time_manage/list.html', _var)
 
 def manage(response, _u_i):
