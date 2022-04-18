@@ -67,3 +67,8 @@ def delete_music(response, _u_i, _music_id):
     _music_info = Music.objects.get(id = _music_id)
     _music_info.delete()
     return redirect(f'/time_manage/{_u_i}/')
+
+def insta_upload(response, _u_i):
+    _var = {"time_info" : TimeInfo.objects.get(time_unique_id=_u_i)}
+
+    return render(response, 'time_manage/instagramupload.html', _var)
