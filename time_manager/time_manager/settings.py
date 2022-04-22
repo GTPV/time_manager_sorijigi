@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -102,7 +103,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'time_manager.wsgi.application'
+ASGI_APPLICATION = 'time_manager.routing.application'
+#WSGI_APPLICATION = 'time_manager.wsgi.application'
 
 
 # Database
