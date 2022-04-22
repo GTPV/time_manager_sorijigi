@@ -103,7 +103,7 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'time_manager.routing.application'
+ASGI_APPLICATION = 'time_manager.asgi.application'
 #WSGI_APPLICATION = 'time_manager.wsgi.application'
 
 
