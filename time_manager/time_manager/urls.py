@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('main/', include('main.urls')),
     path('time_manage/', include('time_manage.urls')),
+    path('tv_display/', include('tv_display.urls')),
 ]
