@@ -1,6 +1,31 @@
 {% extends 'tv_display/base.html' %}
 {% block title %}
+    tv_display/tv
 {% endblock %}
 
 {% block body %}
+    <div class="text-center">
+        <h1 id="music_composer"></h1>
+        <h2 id="music_title"></h2>
+        <h3 id="music_orchestra"></h3>
+        <h2 id="music_conductor"></h2>
+    </div>
 {% endblock %} 
+{% block script %}
+<script>
+    const TvSocket = new WebSocket(`ws://${window.location.host}/ws/tv_display/`);
+    TvSocket.onopen = function (e) {
+        TvSocket.send(JSON.stringify({"message" : "SSSending message to server"}));
+    };
+    TvSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        document.getElementById('music_composer').innerText = data.music_composer;
+        document.getElementById('music_title').innerText = data.music_title;
+        document.getElementById('music_orchestra').innerText = data.music_orchestra;
+        document.getElementById('music_conductor').innerText = data.music_conductor;
+    };
+    TvSocket.onclose = function (e) {
+        console.error("Tv socket closed");
+    }
+</script>
+{% endblock %}

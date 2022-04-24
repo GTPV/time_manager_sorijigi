@@ -106,6 +106,17 @@ TEMPLATES = [
 ASGI_APPLICATION = 'time_manager.asgi.application'
 #WSGI_APPLICATION = 'time_manager.wsgi.application'
 
+CHANNEL_LAYERS = {
+    "default" : {
+        "BACKEND" : 'channels.layers.InMemoryChannelLayer',#"channels_redis.core.RedisChannelLayer",
+        #"CONFIG" : {
+        #    "hosts" : [("127.0.0.1", 6379)],
+        #},
+    },
+}
+
+STREAM_SOCKET_GROUP_NAME = 'tv_socket_group'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

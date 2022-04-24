@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
+from tv_display import views as tv_display_views
 
 # Create your views here.
 def index(response):
@@ -70,5 +71,8 @@ def delete_music(response, _u_i, _music_id):
 
 def insta_upload(response, _u_i):
     _var = {"time_info" : TimeInfo.objects.get(time_unique_id=_u_i)}
-
     return render(response, 'time_manage/instagramupload.html', _var)
+
+def update_tv(response, _u_i, _music_id):
+    tv_display_views.update(response, _u_i, _music_id)
+    return redirect(f'/time_manage/{_u_i}/')

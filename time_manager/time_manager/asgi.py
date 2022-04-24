@@ -20,7 +20,7 @@ application = ProtocolTypeRouter({
     'http':get_asgi_application(),
     "websocket":AuthMiddlewareStack(
         URLRouter(
-            tv_display_routing.websocket_patterns
+            tv_display_routing.websocket_urlpatterns
         )
     ),
 })

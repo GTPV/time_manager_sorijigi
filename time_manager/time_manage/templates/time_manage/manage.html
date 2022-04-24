@@ -17,6 +17,7 @@
                 <th scope="col">오케스트라</th>
                 <th scope="col">지휘자</th>
                 <th scope="col">삭제</th>
+                <th scope="col">판서 띄우기</th>
                 <!--<th scope="col">연주자</th>-->
             </tr>
         </thead>
@@ -41,6 +42,7 @@
                     <td>{{music.music_orchestra}}</td>
                     <td>{{music.music_conductor}}</td>
                     <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music.id}}">삭제하기</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv/{{music.id}}">판서하기!</a></td>
                 </tr>
                 <script>
                     music_idx++;
