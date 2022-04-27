@@ -1,12 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'main/base.html' %}
+{% block body %}
+    <div class="container" style="position: relative;height: 100vw;width: 100vw">
+        <div class="row">
+        <div class="container text-center overflow-hidden" style="margin-top: 10vw; height: 20vw; width: 40vw;">
+            <h1>Welcome to Sorijigi!<br>소리지기에 오신 것을 환영합니다!</h1>
+            <div class="row justify-content-center" style="margin-top: 2vw">
+                <div class="col">
+                    <div style="margin-left:40%">
+                        <button class="btn btn-primary btn-lg" onclick="location.href='/time_manage/'">타임 관리</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="margin-right:40%">
+                        <button class="btn btn-outline-primary btn-lg" onclick="location.href='/tv_display/'">판서 화면</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div style="position:abolute;bottom: 0px; right: 0px;">
+            <button class="btn btn-sm btn-outline-secondary">admin</button>
+        </div>
+        </div>
+    </div>
+{% endblock %}
