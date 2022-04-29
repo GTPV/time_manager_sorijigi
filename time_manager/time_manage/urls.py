@@ -8,5 +8,5 @@ urlpatterns = [
     path('<str:_u_i>/', views.manage, name='manage'),
     path('<str:_u_i>/delete/<int:_music_id>/', views.delete_music, name='delete_music'),
     path('<str:_u_i>/insta_upload/', views.insta_upload, name='insta_upload'),
-    path('<str:_u_i>/update_tv/<int:_music_id>/', views.update_tv, name='upate_tv'),
+    path('<str:_u_i>/update_tv_music/<int:_music_id>/', views.update_tv_music, name='upate_tv_music'),
 ]

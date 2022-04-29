@@ -59,8 +59,10 @@ def manage(response, _u_i):
                 _time_info.music_set.create(**_music_add_form.cleaned_data)
                 return redirect("./")
             print('\nform is not valid\n')
+        elif response.POST.get("update_tv_breaktime"):
+            _breaktime_form = UpdateBreaktime(response.POST)
         else:
-            print('\nresponse is not add_music\n')
+            print('\nresponse is not (add_music or update_tv_breaktime)\n')
             _music_add_form = AddMusic()
     return render(response, 'time_manage/manage.html', _var)
 
@@ -73,6 +75,6 @@ def insta_upload(response, _u_i):
     _var = {"time_info" : TimeInfo.objects.get(time_unique_id=_u_i)}
     return render(response, 'time_manage/instagramupload.html', _var)
 
-def update_tv(response, _u_i, _music_id):
-    tv_display_views.update(response, _u_i, _music_id)
+def update_tv_music(response, _u_i, _music_id):
+    tv_display_views.update_music(response, _u_i, _music_id)
     return redirect(f'/time_manage/{_u_i}/')
