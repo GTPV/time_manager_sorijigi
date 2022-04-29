@@ -9,7 +9,7 @@ from django.conf import settings
 def index(response):
     return render(response, 'tv_display/tv.html', {})
 
-def update(response, _u_i, _music_id):
+def update_music(response, _u_i, _music_id):
     print('tv_display.views.update called!!')
     _music_info = Music.objects.get(id=_music_id)
     _music_info_dict = {
