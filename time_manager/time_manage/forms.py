@@ -39,3 +39,7 @@ class AddMusic(forms.ModelForm):
 
 class FilterTime(forms.Form):
     _time_date = forms.DateField()
+
+class UpdateBreaktime(forms.Form):
+    _time_start = forms.TimeField()
+    _time_end = forms.TimeField()
