@@ -37,9 +37,12 @@ class AddMusic(forms.ModelForm):
             'music_orchestra' : "오케스트라",
         }
 
+class AddPlayer(forms.Form):
+    _player_list = forms.CharField(max_length=500, required=False)
+
 class FilterTime(forms.Form):
     _time_date = forms.DateField()
 
 class UpdateBreaktime(forms.Form):
-    _time_start = forms.TimeField()
-    _time_end = forms.TimeField()
+    _time_start = forms.CharField()
+    _time_end = forms.CharField()

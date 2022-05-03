@@ -49,18 +49,34 @@ def list(response):
 def manage(response, _u_i):
     _time_info = TimeInfo.objects.get(time_unique_id = _u_i)
     _music_add_form = AddMusic()
-    _var = {"time_info" : _time_info, "music_add_form" : _music_add_form}
+    _player_list_form = AddPlayer()
+    _var = {"time_info" : _time_info, "music_add_form" : _music_add_form, "player_list_form" : _player_list_form}
 
     if response.method == "POST":
         if response.POST.get("add_music"):
             _music_add_form = AddMusic(response.POST)
-            if _music_add_form.is_valid():
+            _player_list_form = AddPlayer(response.POST)
+            _player_list = []
+            if _music_add_form.is_valid() and _player_list_form.is_valid():
                 print('\n\nform_is_valid\n\n')
-                _time_info.music_set.create(**_music_add_form.cleaned_data)
+                #_time_info.music_set.create(**_music_add_form.cleaned_data)
+                _music_info = Music(**_music_add_form.cleaned_data)
+                _music_info.time_info = _time_info
+                _music_info.save()
+                _player_list = [i.strip() for i in _player_list_form.cleaned_data["_player_list"].split(sep=',')]
+                print(f'\n\nplayer list : {_player_list}\n\n')
+                for _p_i in _player_list:
+                    _player_info = [i.strip() for i in _p_i.split(sep=":")]
+                    print(f'\nplayer_info : {_player_info} \n')
+                    player_info = Player(player_name = _player_info[1], player_instrument = _player_info[0], music = _music_info)
+                    player_info.save()
                 return redirect("./")
             print('\nform is not valid\n')
         elif response.POST.get("update_tv_breaktime"):
             _breaktime_form = UpdateBreaktime(response.POST)
+            if _breaktime_form.is_valid():
+                update_tv_breaktime(response, _breaktime_form.cleaned_data["_time_start"], _breaktime_form.cleaned_data["_time_end"])
+            return redirect("./")
         else:
             print('\nresponse is not (add_music or update_tv_breaktime)\n')
             _music_add_form = AddMusic()
@@ -78,3 +94,7 @@ def insta_upload(response, _u_i):
 def update_tv_music(response, _u_i, _music_id):
     tv_display_views.update_music(response, _u_i, _music_id)
     return redirect(f'/time_manage/{_u_i}/')
+
+def update_tv_breaktime(response, _time_start, _time_end):
+    tv_display_views.update_breaktime(response, _time_start, _time_end)
+    return None

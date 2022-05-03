@@ -18,17 +18,32 @@
         TvSocket.send(JSON.stringify({"message" : "SSSending message to server"}));
     };
     TvSocket.onmessage = function (e) {
+        console.log(e.data);
         const data = JSON.parse(e.data);
-        document.getElementById('music_composer').innerText = data.music_composer;
-        document.getElementById('music_title').innerText = data.music_title;
-        if(data.music_orchestra != '해당 없음'){
-            document.getElementById('music_orchestra').innerText = data.music_orchestra;
-        } else{
+        console.log(data);
+        const info = data["info"]
+        console.log(info)
+        const update_type = data["update_type"];
+        console.log("update_type is..." + update_type)
+        if(update_type == "music"){
+            console.log("update type is music...updating music...")
+            document.getElementById('music_composer').innerText = info["music_composer"];
+            document.getElementById('music_title').innerText = info["music_title"];
+            if(data.music_orchestra != '해당 없음'){
+                document.getElementById('music_orchestra').innerText = info["music_orchestra"];
+            } else{
+                document.getElementById('music_orchestra').innerText = '';
+            }
+            if(data.music_conductor != '해당 없음'){
+                document.getElementById('music_conductor').innerText = info["music_conductor"];
+            } else{
+                document.getElementById('music_conductor').innerText = '';
+            }
+        } else if(update_type == "breaktime"){
+            console.log("update type is breaktime...updating breaktime...")
+            document.getElementById('music_composer').innerText = '기기 휴식'
+            document.getElementById('music_title').innerText = info["time_start"] + " ~ " + info["time_end"];
             document.getElementById('music_orchestra').innerText = '';
-        }
-        if(data.music_conductor != '해당 없음'){
-            document.getElementById('music_conductor').innerText = data.music_conductor;
-        } else{
             document.getElementById('music_conductor').innerText = '';
         }
     };

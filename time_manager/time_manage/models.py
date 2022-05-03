@@ -40,9 +40,10 @@ class Music(models.Model):
 class Player(models.Model):
     music = models.ForeignKey(Music, on_delete=models.CASCADE)
 
-    player_name = models.CharField(max_length=100)
+    player_name = models.CharField(max_length=100, default='연주자이름')
+    player_instrument = models.CharField(max_length=100, blank=True, default='악기')
 
     class Meta:
         verbose_name='연주자'
         verbose_name_plural='연주자'
-        ordering=['player_name']
+        ordering=['id', 'player_name']
