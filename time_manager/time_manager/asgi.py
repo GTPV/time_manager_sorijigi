@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/asgi/
 
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'time_manager.settings')
+
 import django
 django.setup()
 
