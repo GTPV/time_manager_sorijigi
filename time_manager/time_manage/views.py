@@ -1,7 +1,5 @@
 from django.core.exceptions import *
 from django.http import HttpResponseRedirect, HttpResponse
-from rest_framework import status, viewsets
-from rest_framework.response import Response
 from django.shortcuts import render, redirect
 from .forms import *
 from .models import *

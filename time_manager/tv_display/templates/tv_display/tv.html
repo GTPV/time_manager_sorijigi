@@ -29,12 +29,12 @@
             console.log("update type is music...updating music...")
             document.getElementById('music_composer').innerText = info["music_composer"];
             document.getElementById('music_title').innerText = info["music_title"];
-            if(data.music_orchestra != '해당 없음'){
+            if(info["music_orchestra"] != '해당 없음'){
                 document.getElementById('music_orchestra').innerText = info["music_orchestra"];
             } else{
                 document.getElementById('music_orchestra').innerText = '';
             }
-            if(data.music_conductor != '해당 없음'){
+            if(info["music_conductor"] != '해당 없음'){
                 document.getElementById('music_conductor').innerText = info["music_conductor"];
             } else{
                 document.getElementById('music_conductor').innerText = '';

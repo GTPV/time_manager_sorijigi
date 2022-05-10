@@ -8,13 +8,15 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/asgi/
 """
 
 import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'time_manager.settings')
+import django
+django.setup()
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
 from tv_display import routing as tv_display_routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'time_manager.settings')
 
 application = ProtocolTypeRouter({
     'http':get_asgi_application(),
