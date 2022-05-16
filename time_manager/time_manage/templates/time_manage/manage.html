@@ -16,14 +16,15 @@
                 <th scope="col">제목</th>
                 <th scope="col">오케스트라</th>
                 <th scope="col">지휘자</th>
-                <th scope="col">삭제</th>
-                <th scope="col">판서 띄우기</th>
                 <th scope="col">연주자</th>
+                <th scope="col">삭제하기</th>
+                <th scope="col">판서 띄우기</th>
             </tr>
         </thead>
         <tbody>
             <script>
                 let music_idx = 0;
+                let player_count = 0;
             </script>
             {% for music in time_info.music_set.all %}
                 <tr>
@@ -48,10 +49,14 @@
                 <script>
                     music_idx++;
                     document.getElementById({{music.id}}).innerHTML = music_idx;
-                    let player_count = 0;
-                    player_count = int({{music.player_set.count}});
+                    player_count = {{music.player_set.count}};
+                    console.log(player_count);
+                    if(player_count == 0){
+                        document.getElementById("player_col" + "{{music.id}}").innerText = "해당 없음";
+                    }
                     if(player_count > 1){
-                        document.getElementById("player_col" + "{{music.id}}") += " 외 " + toString(player_count - 1) + "명";
+                        player_count -= 1;
+                        document.getElementById("player_col" + "{{music.id}}").innerText += " 외 " + player_count + "명";
                     }
                 </script>
             {% endfor %}

@@ -63,11 +63,13 @@ def manage(response, _u_i):
                 _music_info.save()
                 _player_list = [i.strip() for i in _player_list_form.cleaned_data["_player_list"].split(sep=',')]
                 print(f'\n\nplayer list : {_player_list}\n\n')
-                for _p_i in _player_list:
-                    _player_info = [i.strip() for i in _p_i.split(sep=":")]
-                    print(f'\nplayer_info : {_player_info} \n')
-                    player_info = Player(player_name = _player_info[1], player_instrument = _player_info[0], music = _music_info)
-                    player_info.save()
+                if len(_player_list) > 0:
+                    for _p_i in _player_list:
+                        _player_info = [i.strip() for i in _p_i.split(sep=":")]
+                        print(f'\nplayer_info : {_player_info} \n')
+                        if len(_player_info) == 2:
+                            player_info = Player(player_name = _player_info[1], player_instrument = _player_info[0], music = _music_info)
+                            player_info.save()
                 return redirect("./")
             print('\nform is not valid\n')
         elif response.POST.get("update_tv_breaktime"):
