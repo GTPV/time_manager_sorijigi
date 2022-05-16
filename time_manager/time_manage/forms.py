@@ -38,7 +38,7 @@ class AddMusic(forms.ModelForm):
         }
 
 class AddPlayer(forms.Form):
-    _player_list = forms.CharField(max_length=500, required=False)
+    _player_list = forms.CharField(max_length=500, required=False, label="연주자 리스트")
 
 class FilterTime(forms.Form):
     _time_date = forms.DateField()
