@@ -1,26 +1,26 @@
 {% extends 'main/base.html' %}
 {% block body %}
-    <div class="container" style="position: relative;height: 100vw;width: 100vw">
+    <div class="container" style="position: relative;height: 100vh;width: 100vw">
         <div class="row">
-        <div class="container text-center overflow-hidden" style="margin-top: 10vw; height: 20vw; width: 40vw;">
-            <h1>Welcome to Sorijigi!<br>소리지기에 오신 것을 환영합니다!</h1>
-            <div class="row justify-content-center" style="margin-top: 2vw">
-                <div class="col">
-                    <div style="margin-left:40%">
-                        <button class="btn btn-primary btn-lg" onclick="location.href='/time_manage/'">타임 관리</button>
+            <div class="container text-center overflow-hidden" style="margin-top: 30vh; height: 40vh; width: 40vw;">
+                <div style="font-size : 5vmin">Welcome to Sorijigi!<br>소리지기에 오신 것을 환영합니다!</div>
+                <div class="row justify-content-center" style="margin-top: 2vh">
+                    <div class="col">
+                        <div style="margin-left:5vw">
+                            <button class="btn btn-primary" onclick="location.href='/time_manage/'" style="height:8vh;width:8vw;font-size:1.6vw;">타임 관리</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div style="margin-right:40%">
-                        <button class="btn btn-outline-primary btn-lg" onclick="location.href='/tv_display/'">판서 화면</button>
+                    <div class="col">
+                        <div style="margin-right:5vw">
+                            <button class="btn btn-outline-primary" onclick="location.href='/tv_display/'" style="height:8vh ;width:8vw;font-size:1.6vw;">판서 화면</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
         <div class="row">
-            <div style="position:abolute;bottom: 0px; right: 0px;">
-                <button class="btn btn-sm btn-outline-secondary" onclick="location.href='/admin/'">admin</button>
+            <div class="container text-center overflow-hidden" style="height: 30vh; width: 100vw">
+                <button class="btn btn-sm btn-outline-secondary" onclick="location.href='/admin/'" style="height:3vh;width:3vw;margin-top:27vh;margin-left:70vw;font-size:0.6vw">admin</button>
             </div>
         </div>
     </div>
