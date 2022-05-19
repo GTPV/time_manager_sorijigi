@@ -6,10 +6,10 @@ from asgiref.sync import async_to_sync
 from django.conf import settings
 
 # Create your views here.
-def index(response):
-    return render(response, 'tv_display/tv.html', {})
+def index(request):
+    return render(request, 'tv_display/tv.html', {})
 
-def update_music(response, _u_i, _music_id):
+def update_music(request, _u_i, _music_id):
     print('tv_display.views.update called!!')
     _music_info = Music.objects.get(id=_music_id)
     _music_info_dict = {
@@ -29,7 +29,7 @@ def update_music(response, _u_i, _music_id):
         },
     )
 
-def update_breaktime(response, _time_start, _time_end):
+def update_breaktime(request, _time_start, _time_end):
     _breaktime_info_dict = {
         "time_start" : _time_start,
         "time_end" : _time_end,
