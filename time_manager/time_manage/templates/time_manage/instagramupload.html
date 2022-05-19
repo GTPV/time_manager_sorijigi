@@ -1,19 +1,96 @@
 {% extends 'time_manage/base.html' %}
 {% block title %}instagramupload.html\time_manage{% endblock %}
 {% block body %} 
-    <div class="text-center">
-        <h1>[ {{time_info.time_date|date:"M d일 (D)"}} / {{time_info.time_start|date:"H:i"}}~{{time_info.time_end|time:"H:i"}} ]</h1>
-        <div>
-            {% for music in time_info.music_set.all %}
-                <p>
-                    {{music.music_composer}}
-                </p>
-                <p>
-                    {{music.music_title}}
-                </p>
-                <br>
-            {% endfor %}
-        </div>
+    <div class="text-center" style="width:100vw;height:100vh;">
         <button class="btn btn-secondary btn-sm" onclick="location.href='/time_manage/{{time_info.time_unique_id}}'">타임 관리로 돌아가기</button>
+
+        <script>
+            let max_length = 0;
+            let line_count = 0;
+            function get_max(a, b){
+                if(a > b){
+                    return a;
+                } else{
+                    return b;
+                }
+            }
+            function get_min(a, b){
+                if(a < b){
+                    return a;
+                } else{
+                    return b;
+                }
+            }
+        </script>
+        <div id="outline" style="padding:5vmin 5vmin 5vmin 5vmin;">
+            <div id="box">
+                {% load static %}
+                <img src="{% static 'images/sorijigi_logo.png' %}" alt="" style="width:15vmin;height:15vmin;margin-top:2vmin;margin-bottom:2vmin">
+                <div id="time-info">
+                    [ {{time_info.time_date|date:"M d일 (D)"}} / {{time_info.time_start|date:"H:i"}}~{{time_info.time_end|time:"H:i"}} ]
+                </div>
+                <div id="music_list">
+                    {% for music in time_info.music_set.all %}
+                        <div id="music_{{music.id}}">
+                            <div class="composer" style="font-weight:bold;">
+                                {{music.music_composer}}
+                                <script>
+                                    max_length = get_max(max_length, "{{music.music_composer}}".length);
+                                    console.log(max_length);
+                                    line_count++;
+                                </script>
+                            </div>
+                            <div class="title">
+                                {{music.music_title}}
+                                <script>
+                                    max_length = get_max(max_length, "{{music.music_title}}".length);
+                                    console.log(max_length);
+                                    line_count++;
+                                </script>
+                            </div>
+                            {% if music.music_orchestra != "해당 없음" %}
+                                <div>
+                                    {{music.music_orchestra}}
+                                </div>
+                                <script>
+                                    max_length = get_max(max_length, "{{music.music_orchestra}}".length);
+                                    line_count++;
+                                </script>
+                            {% endif %}
+                            {% if music.music_conductor != "해당 없음" %}
+                                <div>
+                                    지휘 : {{music.music_conductor}}
+                                </div>
+                                <script>
+                                    max_length = get_max(max_length, "지휘 : {{music.music_conductor}}".length);
+                                    line_count++;
+                                </script>
+                                </script>
+                            {% endif %}
+                            {% if music.player_set > 0 %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
     </div>
+    <script>
+        let outline_height = 90;
+        let outline_width = 45;
+        let box_height = 80;
+        let box_width = 40;
+        let info_font_size = get_min((box_width-10) / max_length, (box_height - 20)/line_count);
+        let interval = (50-(line_count*info_font_size)) / {{time_info.music_set.count}};
+        {% for music in time_info.music_set.all %}
+                document.getElementById('music_{{music.id}}').style.marginTop = get_min(interval, 5) + "vmin";
+        {% endfor %}
+        document.getElementById('music_list').style.fontSize = info_font_size + "vmin";
+        document.getElementById('outline').style.height = outline_height*2 + "vmin";
+        document.getElementById('outline').style.width = outline_width + "vmin";
+        document.getElementById('box').style.width = box_width + "vmin";
+        document.getElementById('box').style.height = box_height + "vmin";
+        document.getElementById('box').style.border = "0.2vmin solid black";
+    </script>
 {% endblock %}
