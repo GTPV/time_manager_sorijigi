@@ -49,7 +49,7 @@
                                 </script>
                             </div>
                             {% if music.music_orchestra != "해당 없음" %}
-                                <div>
+                                <div class="orchestra">
                                     {{music.music_orchestra}}
                                 </div>
                                 <script>
@@ -58,16 +58,22 @@
                                 </script>
                             {% endif %}
                             {% if music.music_conductor != "해당 없음" %}
-                                <div>
+                                <div class="conductor">
                                     지휘 : {{music.music_conductor}}
                                 </div>
                                 <script>
                                     max_length = get_max(max_length, "지휘 : {{music.music_conductor}}".length);
                                     line_count++;
                                 </script>
-                                </script>
                             {% endif %}
-                            {% if music.player_set > 0 %}
+                            {% if music.player_set.count > 0 %}
+                                <div class="player">
+                                    {{music.player_set.first.player_instrument}} : {{music.player_set.first.player_name}}
+                                </div>
+                                <script>
+                                    max_length = get_max(max_length, "{{music.player_set.first.player_instrument}} : {{music.player_set.first.player_name}}".length);
+                                    line_count++;
+                                </script>
                             {% endif %}
                         </div>
                     {% endfor %}
