@@ -26,7 +26,7 @@
             <div id="box">
                 {% load static %}
                 <img src="{% static 'images/sorijigi_logo.png' %}" alt="" style="width:15vmin;height:15vmin;margin-top:2vmin;margin-bottom:2vmin">
-                <div id="time-info">
+                <div id="time-info" style="font-weight : bold;">
                     [ {{time_info.time_date|date:"M d일 (D)"}} / {{time_info.time_start|date:"H:i"}}~{{time_info.time_end|time:"H:i"}} ]
                 </div>
                 <div id="music_list">
@@ -87,8 +87,8 @@
         let outline_width = 45;
         let box_height = 80;
         let box_width = 40;
-        let info_font_size = get_min((box_width-10) / max_length, (box_height - 20)/line_count);
-        let interval = (50-(line_count*info_font_size)) / {{time_info.music_set.count}};
+        let info_font_size = get_min((box_width-5) / max_length, (box_height - 30)/line_count);
+        let interval = (40-(line_count*info_font_size)) / ({{time_info.music_set.count}} + 2);
         {% for music in time_info.music_set.all %}
                 document.getElementById('music_{{music.id}}').style.marginTop = get_min(interval, 5) + "vmin";
         {% endfor %}
