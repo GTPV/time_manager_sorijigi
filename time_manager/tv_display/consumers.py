@@ -29,6 +29,7 @@ class TvConsumer(AsyncWebsocketConsumer):
             'music_title' : "곡 제목",
             'music_orchestra' : "오케스트라",
             'music_conductor' : "지휘자",
+            'music_player' : "악기 : 이름",
         }
 
         await self.channel_layer.group_send(

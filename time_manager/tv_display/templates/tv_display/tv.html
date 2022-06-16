@@ -6,11 +6,12 @@
 {% block body %}
     <div style="background-color:black;">
         <div class="container" id="outline_container" style="width:100vw;height:100vh;background-color:black;color:white;">
-            <div class="text-center">
+            <div class="text-center align-middle">
                 <div id="music_composer" style=""></div>
                 <div id="music_title" style=""></div>
                 <div id="music_conductor" style=""></div>
                 <div id="music_orchestra" style=""></div>
+                <div id="music_player" style=""></div>
             </div>
         </div>
     </div>
@@ -22,10 +23,11 @@
         TvSocket.send(JSON.stringify({"message" : "SSSending message to server"}));
     };
     let total_height = 0;
-    let composer_font_size = 0;
-    let title_font_size = 0;
-    let conductor_font_size = 0;
-    let orchestra_font_size = 0;
+    let composer_font_size = 5;
+    let title_font_size = 4;
+    let conductor_font_size = 2.5;
+    let orchestra_font_size = 2.5;
+    let player_font_size = 2.5;
     let padding_top = 0;
     function get_min(a, b){
         if(a > b){
@@ -43,28 +45,35 @@
         const update_type = data["update_type"];
         console.log("update_type is..." + update_type)
         if(update_type == "music"){
+            total_height = 0.0;
             console.log("update type is music...updating music...")
 
-            composer_font_size = get_min(70/(info["music_composer"].length + 1), 5);
-            title_font_size = get_min(70/(info["music_title"].length + 1), 2.5);
-            conductor_font_size = get_min(70/(info["music_conductor"].length + 1), 2.5);
-            orchestra_font_size = get_min(70/(info["music_conductor"].length + 1), 2.5);
-            total_height = composer_font_size + title_font_size + conductor_font_size + orchestra_font_size + 5;
-            padding_top = (50 - (total_height/window.innerWidth*window.innerHeight)) / 2;
-            console.log(padding_top);
-            document.getElementById('outline_container').style.paddingTop = padding_top + "vh";
+            //composer_font_size = get_min(70/(info["music_composer"].length + 1), 5);
+            //title_font_size = get_min(70/(info["music_title"].length + 1), 2.5);
+            //conductor_font_size = get_min(70/(info["music_conductor"].length + 1), 2.5);
+            //orchestra_font_size = get_min(70/(info["music_conductor"].length + 1), 2.5);
+            //player_font_size = get_min(70/(info["music_player"].length + 1), 2.5);
+            //total_height = composer_font_size + title_font_size + conductor_font_size + orchestra_font_size + player_font_size + 5;
+            //padding_top = (50 - (total_height/window.innerWidth*window.innerHeight)) / 2;
+            //console.log("padding_top = " + padding_top);
+            //document.getElementById('outline_container').style.paddingTop = padding_top + "vh";
 
             document.getElementById('music_composer').innerText = info["music_composer"];
             document.getElementById('music_composer').style.fontSize = composer_font_size + "vw";
+            total_height += 5;
             document.getElementById('music_composer').style.marginBottom = "5vw";
-            total_height += Math.max(70/(info["music_composer"].length), 10);
+            total_height += 5;
 
             document.getElementById('music_title').innerText = info["music_title"];
             document.getElementById('music_title').style.fontSize = title_font_size + "vw";
+            total_height += 4;
+            document.getElementById('music_title').style.marginBottom = "2vw";
+            total_height += 2;
 
             if(info["music_orchestra"] != '해당 없음'){
                 document.getElementById('music_orchestra').innerText = info["music_orchestra"];
                 document.getElementById('music_orchestra').style.fontSize = orchestra_font_size + "vw";
+                total_height += 2.5;
             } else{
                 document.getElementById('music_orchestra').innerText = '';
             }
@@ -72,9 +81,30 @@
             if(info["music_conductor"] != '해당 없음'){
                 document.getElementById('music_conductor').innerText = info["music_conductor"];
                 document.getElementById('music_conductor').style.fontSize = conductor_font_size + "vw";
+                total_height += 2.5;
             } else{
                 document.getElementById('music_conductor').innerText = '';
             }
+
+            if(info["music_player"] != '해당 없음'){
+                let player_list = String(info["music_player"]).split(",");
+                console.log("player_list = " + player_list);
+                let i = 0;
+                let player_html="";
+                for(i = 0; i < player_list.length; i++){
+                    player_html += player_list[i] + "<br>";
+                    total_height += 2.5;
+                }
+                console.log("player_html = " + player_html);
+                document.getElementById('music_player').innerHTML = player_html;
+                document.getElementById('music_player').style.fontSize = "2.5vw";
+                //document.getElementById('music_player').innerText = info["music_player"];
+            } else{
+                document.getElementById('music_player').innerText = '';
+            }
+            padding_top = (50 - (total_height/window.innerWidth*window.innerHeight)) / 2;
+            console.log("padding_top = " + padding_top);
+            document.getElementById('outline_container').style.paddingTop = padding_top + "vh";
         } else if(update_type == "breaktime"){
             console.log("update type is breaktime...updating breaktime...")
             document.getElementById('music_composer').innerText = '기기 휴식'
