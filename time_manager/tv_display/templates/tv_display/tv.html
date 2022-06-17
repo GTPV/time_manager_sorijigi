@@ -5,8 +5,8 @@
 
 {% block body %}
     <div style="background-color:black;">
-        <div class="container" id="outline_container" style="width:100vw;height:100vh;background-color:black;color:white;">
-            <div class="text-center align-middle">
+        <div id="outline_container" style="width:100vw;height:100vh;background-color:black;color:white;">
+            <div id="text_container" class="text-center align-middle" style="background-color:black;">
                 <div id="music_composer" style=""></div>
                 <div id="music_title" style=""></div>
                 <div id="music_conductor" style=""></div>
@@ -29,6 +29,7 @@
     let orchestra_font_size = 2.5;
     let player_font_size = 2.5;
     let player_max_length = 0;
+    let player_line_count = 0;
     let padding_top = 0;
     function get_min(a, b){
         if(a > b){
@@ -53,7 +54,6 @@
         const update_type = data["update_type"];
         console.log("update_type is..." + update_type)
         if(update_type == "music"){
-            total_height = 0.0;
             console.log("update type is music...updating music...")
 
             document.getElementById('music_composer').innerText = info["music_composer"];
@@ -99,13 +99,12 @@
                 }
                 console.log("player_html = " + player_html);
                 document.getElementById('music_player').innerHTML = player_html;
-                //document.getElementById('music_player').innerText = info["music_player"];
             } else{
                 document.getElementById('music_player').innerText = '';
             }
 
             composer_font_size = get_min(70/(info["music_composer"].length + 1), 5);
-            title_font_size = get_min(70/(info["music_title"].length + 1), 2.5);
+            title_font_size = get_min(70/(info["music_title"].length + 1), 4);
             conductor_font_size = get_min(70/(info["music_conductor"].length + 1), 2.5);
             orchestra_font_size = get_min(70/(info["music_conductor"].length + 1), 2.5);
             player_font_size = get_min(70/player_max_length, 2.5);
@@ -114,9 +113,17 @@
             document.getElementById('music_title').style.fontSize = title_font_size + "vw";
             document.getElementById('music_orchestra').style.fontSize = orchestra_font_size + "vw";
             document.getElementById('music_conductor').style.fontSize = conductor_font_size + "vw";
-            document.getElementById('music_player').style.fontSize = "2.5vw";
+            document.getElementById('music_player').style.fontSize = player_font_size + "vw";
 
-            padding_top = (50 - (total_height/window.innerWidth*window.innerHeight)) / 2;
+            total_height = (document.getElementById("text_container").offsetHeight/window.innerHeight) * 100;
+            padding_top = 50 - (total_height/2);
+
+            console.log("composer_font_size = " + composer_font_size);
+            console.log("title_font_size = " + title_font_size);
+            console.log("conductor_font_size = " + conductor_font_size);
+            console.log("orchestra_font_size = " + orchestra_font_size);
+            console.log("player_font_size = " + player_font_size);
+            console.log("total_height = " + total_height);
             console.log("padding_top = " + padding_top);
             document.getElementById('outline_container').style.paddingTop = padding_top + "vh";
         } else if(update_type == "breaktime"){
