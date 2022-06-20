@@ -98,3 +98,56 @@ def update_tv_music(request, _u_i, _music_id):
 def update_tv_breaktime(request, _time_start, _time_end):
     tv_display_views.update_breaktime(request, _time_start, _time_end)
     return None
+
+def edit_music(request, _u_i, _music_id):
+    _time_info = TimeInfo.objects.get(time_unique_id=_u_i)
+    _music_info = Music.objects.get(id=_music_id)
+    _var = {"time_info" : _time_info, "music_info" : _music_info}
+
+    if request.method == "POST":
+        if request.POST.get("edit_music_request"):
+            if request.POST.get("request") == "clicked":
+                _music_info.music_request = True
+            else:
+                _music_info.music_request = False
+            _music_info.save()
+
+        elif request.POST.get("edit_music_source"):
+            _music_source = request.POST.get("source")
+            if len(_music_source) > 0:
+                _music_info.music_source = _music_source
+            _music_info.save()
+
+        elif request.POST.get("edit_music_label_id"):
+            _music_label_id = request.POST.get("label_id")
+            if len(_music_label_id) > 0:
+                _music_info.music_label_id = _music_label_id
+            _music_info.save()
+
+        elif request.POST.get("edit_music_composer"):
+            _music_composer = request.POST.get("composer")
+            if len(_music_composer) > 0:
+                _music_info.music_composer = _music_composer
+            _music_info.save()
+
+        elif request.POST.get("edit_music_title"):
+            _music_title = request.POST.get("title")
+            if len(_music_title) > 0:
+                _music_info.music_title = _music_title
+            _music_info.save()
+
+        elif request.POST.get("edit_music_orchestra"):
+            _music_orchestra = request.POST.get("orchestra")
+            if len(_music_orchestra) > 0:
+                _music_info.music_orchestra = _music_orchestra
+            _music_info.save()
+
+        elif request.POST.get("edit_music_conductor"):
+            _music_conductor = request.POST.get("conductor")
+            if len(_music_conductor) > 0:
+                _music_info.music_conductor = _music_conductor
+            _music_info.save()
+    else:
+        print("\n\nrequest method is not POST\n\n")
+
+    return render(request, 'time_manage/edit.html', _var)

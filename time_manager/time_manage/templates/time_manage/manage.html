@@ -17,8 +17,9 @@
                 <th scope="col">오케스트라</th>
                 <th scope="col">지휘자</th>
                 <th scope="col">연주자</th>
-                <th scope="col">삭제하기</th>
-                <th scope="col">판서 띄우기</th>
+                <th scope="col">삭제</th>
+                <th scope="col">편집</th>
+                <th scope="col">판서</th>
             </tr>
         </thead>
         <tbody>
@@ -43,9 +44,9 @@
                     <td>{{music_info.music_orchestra}}</td>
                     <td>{{music_info.music_conductor}}</td>
                     <td id="player_col{{music_info.id}}">{{music_info.player_set.first.player_instrument}}: {{music_info.player_set.first.player_name}}</td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music_info.id}}">삭제하기</a></td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}">편집하기</a></td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music_info.id}}">판서하기!</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music_info.id}}">삭제</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}">편집</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music_info.id}}">판서!</a></td>
                 </tr>
                 <script>
                     music_idx++;
