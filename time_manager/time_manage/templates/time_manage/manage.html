@@ -26,37 +26,38 @@
                 let music_idx = 0;
                 let player_count = 0;
             </script>
-            {% for music in time_info.music_set.all %}
+            {% for music_info in time_info.music_set.all %}
                 <tr>
-                    <th scope="row" id="{{music.id}}"></th>
+                    <th scope="row" id="{{music_info.id}}"></th>
                     <td>
-                        {% if music.music_request %}
+                        {% if music_info.music_request %}
                             O
                         {% else %}
                             X
                         {% endif %}
                     </td>
-                    <td>{{music.music_source}}</td>
-                    <td>{{music.music_label_id}}</td>
-                    <td>{{music.music_composer}}</td>
-                    <td>{{music.music_title}}</td>
-                    <td>{{music.music_orchestra}}</td>
-                    <td>{{music.music_conductor}}</td>
-                    <td id="player_col{{music.id}}">{{music.player_set.first.player_instrument}}: {{music.player_set.first.player_name}}</td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music.id}}">삭제하기</a></td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music.id}}">판서하기!</a></td>
+                    <td>{{music_info.music_source}}</td>
+                    <td>{{music_info.music_label_id}}</td>
+                    <td>{{music_info.music_composer}}</td>
+                    <td>{{music_info.music_title}}</td>
+                    <td>{{music_info.music_orchestra}}</td>
+                    <td>{{music_info.music_conductor}}</td>
+                    <td id="player_col{{music_info.id}}">{{music_info.player_set.first.player_instrument}}: {{music_info.player_set.first.player_name}}</td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music_info.id}}">삭제하기</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}">편집하기</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music_info.id}}">판서하기!</a></td>
                 </tr>
                 <script>
                     music_idx++;
-                    document.getElementById({{music.id}}).innerHTML = music_idx;
-                    player_count = {{music.player_set.count}};
+                    document.getElementById({{music_info.id}}).innerHTML = music_idx;
+                    player_count = {{music_info.player_set.count}};
                     console.log(player_count);
                     if(player_count == 0){
-                        document.getElementById("player_col" + "{{music.id}}").innerText = "해당 없음";
+                        document.getElementById("player_col" + "{{music_info.id}}").innerText = "해당 없음";
                     }
                     if(player_count > 1){
                         player_count -= 1;
-                        document.getElementById("player_col" + "{{music.id}}").innerText += " 외 " + player_count + "명";
+                        document.getElementById("player_col" + "{{music_info.id}}").innerText += " 외 " + player_count + "명";
                     }
                 </script>
             {% endfor %}
