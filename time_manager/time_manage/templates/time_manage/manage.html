@@ -93,6 +93,10 @@
             {% csrf_token %}
             {{music_add_form.as_p}}
             {{player_list_form.as_p}}
+            <div>
+                연주자를 입력할 때에는 악기와 연주자는 ":"으로, 각 악기끼리는 ","로 구분해주세요<br>
+                ex) 피아노 : 이진환, 클라리넷 : 김종하
+            </div>
             <button type="submit" class="btn btn-primary" name="add_music" value="add_music">음악 추가!</button>
         </form>
     </div>
