@@ -167,7 +167,7 @@ USE_TZ = True
 STATIC_URL = 'static_collect/'
 STATIC_ROOT = 'static_collect/'
 STATICFILES_DIRS = (
-    BASE_DIR / 'static/',
+    BASE_DIR / 'static_collect/',
 )
 
 # Default primary key field type
