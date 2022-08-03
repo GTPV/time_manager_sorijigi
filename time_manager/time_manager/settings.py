@@ -166,9 +166,9 @@ USE_TZ = True
 
 STATIC_URL = 'static_collect/'
 STATIC_ROOT = 'static_collect/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static_collect/',
-)
+#STATICFILES_DIRS = (
+#    BASE_DIR / 'static_collect/',
+#)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
