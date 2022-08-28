@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">삭제</th>
                 <th scope="col">신청곡</th>
                 <th scope="col">음원 종류</th>
                 <th scope="col">음반 번호</th>
@@ -17,7 +18,6 @@
                 <th scope="col">오케스트라</th>
                 <th scope="col">지휘자</th>
                 <th scope="col">연주자</th>
-                <th scope="col">삭제</th>
                 <th scope="col">편집</th>
                 <th scope="col">판서</th>
             </tr>
@@ -30,6 +30,7 @@
             {% for music_info in time_info.music_set.all %}
                 <tr>
                     <th scope="row" id="{{music_info.id}}"></th>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music_info.id}}">삭제</a></td>
                     <td>
                         {% if music_info.music_request %}
                             O
@@ -44,7 +45,6 @@
                     <td>{{music_info.music_orchestra}}</td>
                     <td>{{music_info.music_conductor}}</td>
                     <td id="player_col{{music_info.id}}">{{music_info.player_set.first.player_instrument}}: {{music_info.player_set.first.player_name}}</td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music_info.id}}">삭제</a></td>
                     <td><a href="/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}">편집</a></td>
                     <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music_info.id}}">판서!</a></td>
                 </tr>
