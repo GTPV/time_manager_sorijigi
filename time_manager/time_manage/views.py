@@ -44,6 +44,15 @@ def list(request):
         print(f'\n\nresponse method is not POST\n\n')
     return render(request, 'time_manage/list.html', _var)
 
+def delete_time_confirm(request, _u_i):
+    _var = {"time_info" : TimeInfo.objects.get(time_unique_id = _u_i)}
+    return render(request, 'time_manage/deletetimeconfirm.html', _var)
+
+def delete_time(request, _u_i):
+    _time_info = TimeInfo.objects.get(time_unique_id = _u_i)
+    _time_info.delete()
+    return redirect(f'/time_manage/list/')
+
 def manage(request, _u_i):
     _time_info = TimeInfo.objects.get(time_unique_id = _u_i)
     _music_add_form = AddMusic()

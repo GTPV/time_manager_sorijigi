@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <!--<th scope="col">#</th>-->
+                <th scope="col">삭제</th>
                 <th scope="col">날짜</th>
                 <th scope="col">시작 시간</th>
                 <th scope="col">종료 시간</th>
@@ -24,6 +25,7 @@
             {% for ti in time_info %}
                     <tr>
                         <!--<th scope="row">{{ti.id}}</th>-->
+                        <td><a href="/time_manage/delete_time_confirm/{{ti.time_unique_id}}">삭제</a></td>
                         <td>{{ti.time_date}}</td>
                         <td>{{ti.time_start}}</td>
                         <td>{{ti.time_end}}</td>
