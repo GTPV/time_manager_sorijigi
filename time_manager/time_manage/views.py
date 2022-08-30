@@ -82,7 +82,13 @@ def manage(request, _u_i):
             _music_add_form = AddMusic()
     return render(request, 'time_manage/manage.html', _var)
 
+def delete_music_confirm(request, _u_i, _music_id):
+    print("\n\ndelete_music_confirm clicked\n\n")
+    _var = {"time_info" : TimeInfo.objects.get(time_unique_id = _u_i), "music_info" : Music.objects.get(id = _music_id)}
+    return render(request, 'time_manage/deletemusicconfirm.html', _var)
+
 def delete_music(request, _u_i, _music_id):
+    print("\n\ndelete_music clicked\n\n")
     _music_info = Music.objects.get(id = _music_id)
     _music_info.delete()
     return redirect(f'/time_manage/{_u_i}/')

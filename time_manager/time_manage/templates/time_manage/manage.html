@@ -30,7 +30,7 @@
             {% for music_info in time_info.music_set.all %}
                 <tr>
                     <th scope="row" id="{{music_info.id}}"></th>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete/{{music_info.id}}">삭제</a></td>
+                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete_music_confirm/{{music_info.id}}">삭제</a></td>
                     <td>
                         {% if music_info.music_request %}
                             O

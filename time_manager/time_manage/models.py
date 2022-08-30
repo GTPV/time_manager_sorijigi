@@ -7,10 +7,11 @@ class TimeInfo(models.Model):
     time_start = models.TimeField()
     time_end = models.TimeField()
     time_manager = models.CharField(max_length=100)
+    time_manager_time = models.CharField(max_length=100)
     time_unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
-        return f'일시 : {self.time_date:%y/%m/%d} {self.time_start:%H:%M}~{self.time_end:%H:%M}, 타임 운영자 : {self.time_manager}'
+        return f'일시 : {self.time_date:%y/%m/%d} {self.time_start:%H:%M}~{self.time_end:%H:%M}, 타임 운영자 : {self.time_manager}, 출근 시간 : {self.time_manager_time}'
 
     class Meta:
         verbose_name = '타임 정보'

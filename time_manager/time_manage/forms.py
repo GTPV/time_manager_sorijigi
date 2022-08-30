@@ -16,6 +16,7 @@ class CreateNewTime(forms.ModelForm):
             'time_start' : "타임 시작시간",
             'time_end' : "타임 종료시간",
             'time_manager' : "타임 운영자",
+            'time_manager_time' : "타임 운영자 출근시간",
         }
 
 class AddMusic(forms.ModelForm):
