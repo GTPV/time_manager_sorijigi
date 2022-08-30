@@ -38,8 +38,28 @@
     {% endblock %}
 
     {% block body %}
-        <button type="button" class="btn btn-danger btn-sm", onclick="location.href='/time_manage/{{time_info.time_unique_id}}/delete_music/{{music_info.id}}'">삭제!</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg", onclick="location.href='/time_manage/{{time_info.time_unique_id}}'">취소</button>
+      <div class="container text-center" style="margin-top : 5vh">
+        <div class="row">
+          <div style="font-size : 5vmin; color : red">Warning!</div>
+        </div>
+        <div class="row">
+          <div style="font-size : 3vmin">음악</div>
+          <br>
+          <div style="font-size : 4vmin">"{{music_info.music_title}}-{{music_info.music_composer}}"</div>
+          <br>
+          <div style="font-size : 3vmin">정보를 삭제하시겠습니까?</div>
+        </div>
+        <div class="row" style="margin-top : 10vh">
+          <div class="col"></div>
+          <div class="col justify-content-center">
+            <button type="button" class="btn btn-danger", style="font-size : 1vmin ;height : 3vmin; width : 6vmin; margin-top : 6vmin", onclick="location.href='/time_manage/{{time_info.time_unique_id}}/delete_music/{{music_info.id}}'">삭제!</button>
+          </div>
+          <div class="col justify-content-center">
+            <button type="button" class="btn btn-outline-secondary", style="font-size : 5vmin; height : 15vmin; width : 30vmin", onclick="location.href='/time_manage/{{time_info.time_unique_id}}'">취소</button>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
     {% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->
