@@ -23,7 +23,7 @@ class Music(models.Model):
 
     
     music_request = models.BooleanField(default=False)
-    music_source = models.CharField(max_length=100, default='CD')
+    music_source = models.CharField(max_length=100, default='ROON')
     music_label_id = models.CharField(max_length=50, blank=True, default='해당 없음')
     music_composer = models.CharField(max_length=100)
     music_title = models.CharField(max_length=200)

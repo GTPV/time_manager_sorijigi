@@ -37,9 +37,30 @@
     </nav>
     {% endblock %}
 
-    <div id="body_container" class="container-fluid" sytle="padding : 5vm">
-    {% block body %}{% endblock %}
-    </div>
+    {% block body %}
+      <div class="container text-center" style="margin-top : 5vh">
+        <div class="row">
+          <div style="font-size : 5vmin; color : red">Warning!</div>
+        </div>
+        <div class="row">
+          <div style="font-size : 3vmin">연주자</div>
+          <br>
+          <div style="font-size : 4vmin">"{{player_info.player_instrument}} : {{player_info.player_name}}"</div>
+          <br>
+          <div style="font-size : 3vmin">정보를 삭제하시겠습니까?</div>
+        </div>
+        <div class="row" style="margin-top : 10vh">
+          <div class="col"></div>
+          <div class="col justify-content-center">
+            <button type="button" class="btn btn-danger", style="font-size : 1vmin ;height : 3vmin; width : 6vmin; margin-top : 6vmin", onclick="location.href='/time_manage/{{time_info.time_unique_id}}/delete_player/{{music_info.id}}/{{player_info.id}}'">삭제!</button>
+          </div>
+          <div class="col justify-content-center">
+            <button type="button" class="btn btn-outline-secondary", style="font-size : 5vmin; height : 15vmin; width : 30vmin", onclick="location.href='/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}'">취소</button>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    {% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->
 

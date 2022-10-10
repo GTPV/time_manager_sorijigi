@@ -53,6 +53,14 @@ def delete_time(request, _u_i):
     _time_info.delete()
     return redirect(f'/time_manage/list/')
 
+def save_player_list(_player_list, _music_info):
+    #_player_list = ["instrument1 : player1", "instrument2 : player2", ..., "instrumentN : playerN"]
+    for _p_i in _player_list:
+        _player_info = [i.strip() for i in _p_i.split(sep=":")] #_player_info = [instrument_n, player_n]
+        if len(_player_info) == 2:
+            player_info = Player(player_name = _player_info[1], player_instrument = _player_info[0], music = _music_info)
+            player_info.save()
+
 def manage(request, _u_i):
     _time_info = TimeInfo.objects.get(time_unique_id = _u_i)
     _music_add_form = AddMusic()
@@ -73,12 +81,8 @@ def manage(request, _u_i):
                 _player_list = [i.strip() for i in _player_list_form.cleaned_data["_player_list"].split(sep=',')]
                 print(f'\n\nplayer list : {_player_list}\n\n')
                 if len(_player_list) > 0:
-                    for _p_i in _player_list:
-                        _player_info = [i.strip() for i in _p_i.split(sep=":")]
-                        print(f'\nplayer_info : {_player_info} \n')
-                        if len(_player_info) == 2:
-                            player_info = Player(player_name = _player_info[1], player_instrument = _player_info[0], music = _music_info)
-                            player_info.save()
+                    save_player_list(_player_list, _music_info)
+                    print('\nplayer list added\n')
                 return redirect("./")
             print('\nform is not valid\n')
         elif request.POST.get("update_tv_breaktime"):
@@ -162,7 +166,37 @@ def edit_music(request, _u_i, _music_id):
             if len(_music_conductor) > 0:
                 _music_info.music_conductor = _music_conductor
             _music_info.save()
+
+        elif request.POST.get("add_music_player"):
+            print(f'\nadd_music_player clicked\n')
+            player_info = Player(player_name = "새 연주자 이름", player_instrument = "새 연주자 악기", music = _music_info)
+            player_info.save()
+
+        else:
+            print(f'\nPOST : {request.POST}\n')
+            for _player_info in _music_info.player_set.all():
+                if request.POST.get(f"edit_music_player_instrument{_player_info.id}"):
+                    print(f'\nedit_music_player_instrument{_player_info.id} is clicked!\n')
+                    _player_instrument = request.POST.get(f"instrument{_player_info.id}")
+                    if len(_player_instrument) > 0:
+                        _player_info.player_instrument = _player_instrument
+                        _player_info.save()
+                elif request.POST.get(f"edit_music_player_name{_player_info.id}"):
+                    print(f'\nedit_music_player_name{_player_info.id} is clicked!\n')
+                    _player_name = request.POST.get(f"namename{_player_info.id}")
+                    if len(_player_name) > 0:
+                        _player_info.player_name = _player_name
+                        _player_info.save()
     else:
         print("\n\nrequest method is not POST\n\n")
 
     return render(request, 'time_manage/edit.html', _var)
+
+def delete_player_confirm(request, _u_i, _music_id, _player_id):
+    _var = {"time_info" : TimeInfo.objects.get(time_unique_id=_u_i), "music_info" : Music.objects.get(id=_music_id), "player_info" : Player.objects.get(id=_player_id)}
+    return render(request, 'time_manage/deleteplayerconfirm.html', _var)
+
+def delete_player(request, _u_i, _music_id, _player_id):
+    _player_info = Player.objects.get(id = _player_id)
+    _player_info.delete()
+    return redirect(f'/time_manage/{_u_i}/edit_music/{_music_id}')
