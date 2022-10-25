@@ -30,7 +30,7 @@
             {% for music_info in time_info.music_set.all %}
                 <tr>
                     <th scope="row" id="{{music_info.id}}"></th>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/delete_music_confirm/{{music_info.id}}">삭제</a></td>
+                    <td><a class="btn btn-outline-danger btn-sm" href="/time_manage/{{time_info.time_unique_id}}/delete_music_confirm/{{music_info.id}}">삭제</a></td>
                     <td>
                         {% if music_info.music_request %}
                             O
@@ -44,9 +44,30 @@
                     <td>{{music_info.music_title}}</td>
                     <td>{{music_info.music_orchestra}}</td>
                     <td>{{music_info.music_conductor}}</td>
-                    <td id="player_col{{music_info.id}}">{{music_info.player_set.first.player_instrument}}: {{music_info.player_set.first.player_name}}</td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}">편집</a></td>
-                    <td><a href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music_info.id}}">판서!</a></td>
+                    <!--
+                        <td id="player_col{{music_info.id}}">{{music_info.player_set.first.player_instrument}}: {{music_info.player_set.first.player_name}}</td>
+                    -->
+                    <td id="player_col{{music_info.id}}">
+                        <!--
+                        <select>
+                            {% for player_info in music_info.player_set.all %}
+                                <option>{{player_info.player_instrument}} : {{player_info.player_name}}</option>
+                            {% endfor %}
+                        </select>
+                        -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                연주자 보기
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for player_info in music_info.player_set.all %}
+                                    <li><div class="dropdown-item">{{player_info.player_instrument}} : {{player_info.player_name}}</div></li>
+                                {% endfor %} 
+                            </ul>
+                          </div>
+                    </td>
+                    <td><a class="btn btn-outline-secondary btn-sm" href="/time_manage/{{time_info.time_unique_id}}/edit_music/{{music_info.id}}">편집</a></td>
+                    <td><a class="btn btn-outline-dark btn-sm" href="/time_manage/{{time_info.time_unique_id}}/update_tv_music/{{music_info.id}}">판서!</a></td>
                 </tr>
                 <script>
                     music_idx++;
@@ -54,12 +75,14 @@
                     player_count = {{music_info.player_set.count}};
                     console.log(player_count);
                     if(player_count == 0){
-                        document.getElementById("player_col" + "{{music_info.id}}").innerText = "해당 없음";
+                        document.getElementById("player_col" + "{{music_info.id}}").innerHTML = "해당 없음";
                     }
+                    /*
                     if(player_count > 1){
                         player_count -= 1;
                         document.getElementById("player_col" + "{{music_info.id}}").innerText += " 외 " + player_count + "명";
                     }
+                    */
                 </script>
             {% endfor %}
         </tbody>
@@ -79,7 +102,7 @@
                         <div class="col-4">
                             <input type="time" class="form-control" name="_time_end">
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <button class="btn btn-primary" type="submit" name="update_tv_breaktime" value="update_tv_breaktime">기기 휴식!</button>
                         </div>
                     </div>
