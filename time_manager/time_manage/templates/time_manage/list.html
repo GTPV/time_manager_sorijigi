@@ -25,12 +25,12 @@
             {% for ti in time_info %}
                     <tr>
                         <!--<th scope="row">{{ti.id}}</th>-->
-                        <td><a href="/time_manage/delete_time_confirm/{{ti.time_unique_id}}">삭제</a></td>
+                        <td><a class="btn btn-outline-danger btn-sm" href="/time_manage/delete_time_confirm/{{ti.time_unique_id}}">삭제</a></td>
                         <td>{{ti.time_date}}</td>
                         <td>{{ti.time_start}}</td>
                         <td>{{ti.time_end}}</td>
                         <td>{{ti.time_manager}}</td>
-                        <td><a href="/time_manage/{{ti.time_unique_id}}">edit</a></td>
+                        <td><a class="btn btn-outline-secondary btn-sm" href="/time_manage/{{ti.time_unique_id}}">edit</a></td>
                     </tr>
             {% endfor %}
         </tbody>

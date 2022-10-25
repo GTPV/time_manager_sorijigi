@@ -56,8 +56,8 @@
                         </select>
                         -->
                         <div class="dropdown">
-                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                연주자 보기
+                            <button id="player_col_dropdown{{music_info.id}}" class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{music_info.player_set.first.player_instrument}} : {{music_info.player_set.first.player_name}}
                             </button>
                             <ul class="dropdown-menu">
                                 {% for player_info in music_info.player_set.all %}
@@ -77,12 +77,10 @@
                     if(player_count == 0){
                         document.getElementById("player_col" + "{{music_info.id}}").innerHTML = "해당 없음";
                     }
-                    /*
                     if(player_count > 1){
                         player_count -= 1;
-                        document.getElementById("player_col" + "{{music_info.id}}").innerText += " 외 " + player_count + "명";
+                        document.getElementById("player_col_dropdown" + "{{music_info.id}}").innerHTML += " 외 " + player_count + "명";
                     }
-                    */
                 </script>
             {% endfor %}
         </tbody>

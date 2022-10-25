@@ -138,7 +138,7 @@
             {% for player_info in music_info.player_set.all %}
             <tr class="music_player_delete">
                 <th>
-                    <a href="/time_manage/{{time_info.time_unique_id}}/delete_player_confirm/{{music_info.id}}/{{player_info.id}}" id="delete_player{{player_info.id}}"></a>
+                    <a class="btn btn-outline-danger btn-sm" href="/time_manage/{{time_info.time_unique_id}}/delete_player_confirm/{{music_info.id}}/{{player_info.id}}" id="delete_player{{player_info.id}}"></a>
                 </th>
             </tr>
             <tr class="music_player_instrument">
@@ -184,7 +184,7 @@
                 <th>
                     <form method="post" action="#">
                         {% csrf_token %}
-                        <button class="btn btn-outline-secondary" type="submit" name="add_music_player" value="add_music_player">연주자 추가</button>
+                        <button class="btn btn-outline-success" type="submit" name="add_music_player" value="add_music_player">연주자 추가</button>
                     </form>
                 </th>
             </tr>
