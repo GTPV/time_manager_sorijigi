@@ -81,6 +81,8 @@
             </div>
         </div>
 
+        <button id="generate_img">Download image</button>
+
     </div>
     <script>
         let outline_height = 90;
@@ -98,5 +100,25 @@
         document.getElementById('box').style.width = box_width + "vmin";
         document.getElementById('box').style.height = box_height + "vmin";
         document.getElementById('box').style.border = "0.2vmin solid black";
+
+        $(function(){
+            $("#generate_img").on("click", function(){
+                html2canvas(document.querySelector("#outline")).then(canvas => {
+                    saveAs(canvas.toDataURL('image/jpg'), "story.jpg");
+                });
+            });
+            function saveAs(uri, filename){
+                var link = document.createElement('a');
+                if(typeof link.download == 'string'){
+                    link.href = uri;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else{
+                    window.open(uri);
+                }
+            }
+        });
     </script>
 {% endblock %}
