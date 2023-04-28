@@ -32,6 +32,11 @@
                 <div id="music_list">
                     {% for music in time_info.music_set.all %}
                         <div id="music_{{music.id}}">
+                            {% if music.music_request == True %}
+                                <div class="request" style="font-weight:bold;">
+                                    [신청곡]
+                                </div>
+                            {% endif %}
                             <div class="composer" style="font-weight:bold;">
                                 {{music.music_composer}}
                                 <script>
