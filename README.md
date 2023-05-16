@@ -5,6 +5,5 @@ Time manage website for SNU Sorijigi
 ```
 pip install django
 pip install channels
-pip install channels
 pip install daphne
 ```
