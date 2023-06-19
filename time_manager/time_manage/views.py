@@ -112,7 +112,7 @@ def insta_upload(request, _u_i):
 
 def update_tv_music(request, _u_i, _music_id):
     tv_display_views.update_music(request, _u_i, _music_id)
-    return None
+    return redirect(f'/time_manage/{_u_i}/')
 
 def update_tv_breaktime(request, _time_start, _time_end):
     tv_display_views.update_breaktime(request, _time_start, _time_end)
