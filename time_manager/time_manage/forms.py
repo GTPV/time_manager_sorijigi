@@ -5,7 +5,8 @@ class CreateNewTime(forms.ModelForm):
 
     class Meta:
         model = TimeInfo
-        fields = '__all__'
+        exclude = ('time_comment_music', 'time_comment_gigi', 'time_comment_etc',)
+        #fields = '__all__'
         widgets ={
             'time_date' : forms.DateInput(attrs={'type': 'date'}),
             'time_start' : forms.TimeInput(attrs={'type' : 'time'}),

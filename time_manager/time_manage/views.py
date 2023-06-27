@@ -90,6 +90,15 @@ def manage(request, _u_i):
             if _breaktime_form.is_valid():
                 update_tv_breaktime(request, _breaktime_form.cleaned_data["_time_start"], _breaktime_form.cleaned_data["_time_end"])
             return redirect("./")
+        elif request.POST.get("save_comment"):
+            _time_comment_music = request.POST.get("comment_music")
+            _time_comment_gigi = request.POST.get("comment_gigi")
+            _time_comment_etc = request.POST.get("comment_etc")
+            _time_info.time_comment_music = _time_comment_music
+            _time_info.time_comment_gigi = _time_comment_gigi
+            _time_info.time_comment_etc = _time_comment_etc
+            _time_info.save()
+            return redirect("./")
         else:
             print('\nresponse is not (add_music or update_tv_breaktime)\n')
             _music_add_form = AddMusic()

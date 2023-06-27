@@ -109,16 +109,40 @@
         </div>
     </div>
 
-    <div>
-        <form method='post' action="#">
-            {% csrf_token %}
-            {{music_add_form.as_p}}
-            {{player_list_form.as_p}}
-            <div>
-                연주자를 입력할 때에는 악기와 연주자는 ":"으로, 각 악기끼리는 ","로 구분해주세요<br>
-                ex) 피아노 : 이진환, 클라리넷 : 김종하
+    <div style="padding-top: 10vmin;">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form method='post' action="#">
+                        {% csrf_token %}
+                        {{music_add_form.as_p}}
+                        {{player_list_form.as_p}}
+                        <div>
+                            연주자를 입력할 때에는 악기와 연주자는 ":"으로, 각 악기끼리는 ","로 구분해주세요<br>
+                            ex) 피아노 : 이진환, 클라리넷 : 김종하
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="add_music" value="add_music">음악 추가!</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <form method="post" action="#">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="input_comment_music" class="form-label">음악/음원 코멘트</label>
+                            <textarea id="input_comment_music" type="text" class="form-control" name="comment_music">{{time_info.time_comment_music}}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="input_comment_gigi" class="form-label">기기 코멘트</label>
+                            <textarea type="text" class="form-control" name="comment_gigi">{{time_info.time_comment_gigi}}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="input_comment_etc" class="form-label">기타 특이사항</label>
+                            <textarea type="text" class="form-control" name="comment_etc">{{time_info.time_comment_etc}}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="save_comment" value="save_comment">저장!</button>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary" name="add_music" value="add_music">음악 추가!</button>
-        </form>
+        </div>
     </div>
 {% endblock %}
