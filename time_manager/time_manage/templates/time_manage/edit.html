@@ -2,193 +2,167 @@
 {% block title %}edit.html\time_manage{% endblock %}
 
 {% block body %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>항목</th>
-                <th>현재</th>
-                <th>수정</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="music_request">
-                <th>
-                    신청곡 여부
-                </th>
-                <td>
-                    {% if music_info.music_request %}
-                        O
-                    {% else %}
-                        X
-                    {% endif %}
-                </td>
-                <form method="post" action="#">
-                    {% csrf_token %}
+    <div style="width:50%; margin-left:25%; margin-right:25%; align-content: center; align-items:center;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>항목</th>
+                    <th>수정</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="music_request">
+                    <th>
+                        신청곡 여부
+                    </th>
+                    <form method="post" action="#">
+                        {% csrf_token %}
+                        <td>
+                            {% if music_info.music_request %}
+                                <input class="form-check-input" type="checkbox" name="request" value="clicked" checked>
+                            {% else %}
+                                <input class="form-check-input" type="checkbox" name="request" value="clicked">
+                            {% endif %}
+                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_request" value="edit_music_request">편집하기</button>
+                        </td>
+                    </form>
+                </tr>
+                <tr class="music_source">
+                    <th>
+                        음원 종류
+                    </th>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="request" value="clicked">
-                        <button class="btn btn-outline-secondary" type="submit" name="edit_music_request" value="edit_music_request">편집하기</button>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="source" style="height:1em;">{{music_info.music_source}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_source" value="edit_music_source">편집하기</button>
+                            </div>
+                        </form>
                     </td>
-                </form>
-            </tr>
-            <tr class="music_source">
-                <th>
-                    음원 종류
-                </th>
-                <td>
-                    {{music_info.music_source}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="source">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_source" value="edit_music_source">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <tr class="music_label_id">
-                <th>
-                    음반 번호
-                </th>
-                <td>
-                    {{music_info.music_label_id}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="label_id">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_label_id" value="edit_music_label_id">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <tr class="music_composer">
-                <th>
-                    작곡가
-                </th>
-                <td>
-                    {{music_info.music_composer}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="composer">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_composer" value="edit_music_composer">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <tr class="music_title">
-                <th>
-                    제목
-                </th>
-                <td>
-                    {{music_info.music_title}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="title">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_title" value="edit_music_title">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <tr class="music_orchestra">
-                <th>
-                    오케스트라
-                </th>
-                <td>
-                    {{music_info.music_orchestra}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="orchestra">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_orchestra" value="edit_music_orchestra">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <tr class="music_conductor">
-                <th>
-                    지휘자
-                </th>
-                <td>
-                    {{music_info.music_conductor}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="conductor">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_conductor" value="edit_music_conductor">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <script>
-                let player_count = 0;
-            </script>
-            {% for player_info in music_info.player_set.all %}
-            <tr class="music_player_delete">
-                <th>
-                    <a class="btn btn-outline-danger btn-sm" href="/time_manage/{{time_info.time_unique_id}}/delete_player_confirm/{{music_info.id}}/{{player_info.id}}" id="delete_player{{player_info.id}}"></a>
-                </th>
-            </tr>
-            <tr class="music_player_instrument">
-                <th id="player_instrument{{player_info.id}}">
-                </th>
-                <td>
-                    {{player_info.player_instrument}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="instrument{{player_info.id}}">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_player_instrument{{player_info.id}}" value="edit_music_player_instrument{{player_info.id}}">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <tr class="music_player_name">
-                <th id="player_name{{player_info.id}}">
-                </th>
-                <td>
-                    {{player_info.player_name}}
-                </td>
-                <td>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="namename{{player_info.id}}">
-                            <button class="btn btn-outline-secondary" type="submit" name="edit_music_player_name{{player_info.id}}" value="edit_music_player_name{{player_info.id}}">편집하기</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            <script>
-                player_count++;
-                document.getElementById("player_instrument" + "{{player_info.id}}").innerText = "악기" + player_count;
-                document.getElementById("player_name"+"{{player_info.id}}").innerText = "연주자" + player_count;
-                document.getElementById("delete_player" + "{{player_info.id}}").innerText = "연주자" + player_count + " 삭제";
-            </script>
-            {% endfor %}
-            <tr>
-                <th>
-                    <form method="post" action="#">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-success" type="submit" name="add_music_player" value="add_music_player">연주자 추가</button>
-                    </form>
-                </th>
-            </tr>
-        </tbody>
-    </table>
-    <button class="btn btn-primary" onclick="location.href='/time_manage/{{time_info.time_unique_id}}/'">편집 완료</button>
+                </tr>
+                <tr class="music_label_id">
+                    <th>
+                        음반 번호
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="label_id"style="height:1em;">{{music_info.music_label_id}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_label_id" value="edit_music_label_id">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="music_composer">
+                    <th>
+                        작곡가
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="composer"style="height:1em;">{{music_info.music_composer}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_composer" value="edit_music_composer">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="music_title">
+                    <th>
+                        제목
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="title"style="height:1em;">{{music_info.music_title}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_title" value="edit_music_title">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="music_orchestra">
+                    <th>
+                        오케스트라
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="orchestra"style="height:1em;">{{music_info.music_orchestra}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_orchestra" value="edit_music_orchestra">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="music_conductor">
+                    <th>
+                        지휘자
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="conductor"style="height:1em;">{{music_info.music_conductor}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_conductor" value="edit_music_conductor">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <script>
+                    let player_count = 0;
+                </script>
+                {% for player_info in music_info.player_set.all %}
+                <tr class="music_player_delete">
+                    <th>
+                        <a class="btn btn-outline-danger btn-sm" href="/time_manage/{{time_info.time_unique_id}}/delete_player_confirm/{{music_info.id}}/{{player_info.id}}" id="delete_player{{player_info.id}}"></a>
+                    </th>
+                </tr>
+                <tr class="music_player_instrument">
+                    <th id="player_instrument{{player_info.id}}">
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="instrument{{player_info.id}}"style="height:1em;">{{player_info.player_instrument}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_player_instrument{{player_info.id}}" value="edit_music_player_instrument{{player_info.id}}">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="music_player_name">
+                    <th id="player_name{{player_info.id}}">
+                    </th>
+                    <td>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <textarea class="form-control" type="text" name="namename{{player_info.id}}"style="height:1em;">{{player_info.player_name}}</textarea>
+                                <button class="btn btn-outline-secondary" type="submit" name="edit_music_player_name{{player_info.id}}" value="edit_music_player_name{{player_info.id}}">편집하기</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <script>
+                    player_count++;
+                    document.getElementById("player_instrument" + "{{player_info.id}}").innerText = "악기" + player_count;
+                    document.getElementById("player_name"+"{{player_info.id}}").innerText = "연주자" + player_count;
+                    document.getElementById("delete_player" + "{{player_info.id}}").innerText = "연주자" + player_count + " 삭제";
+                </script>
+                {% endfor %}
+                <tr>
+                    <th>
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-success" type="submit" name="add_music_player" value="add_music_player">연주자 추가</button>
+                        </form>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" onclick="location.href='/time_manage/{{time_info.time_unique_id}}/'">편집 완료</button>
+    </div>
 {% endblock %}
